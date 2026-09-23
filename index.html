@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" 
-  <link rel="preload" as="image" href="assets/background-optimized.webp" type="image/webp">
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#123f3a" />
   <meta name="description" content="Hotel Greenland Udaipur — comfortable Deluxe and Super Deluxe rooms in Hiran Magri, Udaipur. Night stays and hourly stays available." />
   <title>Hotel Greenland Udaipur | Deluxe & Super Deluxe Rooms</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/background.png" media="(min-width:681px)">
+  <link rel="preload" as="image" href="assets/hotel-exterior.webp" type="image/webp" media="(max-width:680px)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -56,11 +57,7 @@
     /* Hero */
     .hero{min-height:94vh;position:relative;display:flex;align-items:flex-end;color:white;overflow:hidden;background:#0a2926}
     .hero-media{position:absolute;inset:0}
-    .hero-media picture{
-      display:block;
-      width:100%;
-      height:100%;
-    }
+    .hero-media picture{display:block;width:100%;height:100%}
     .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 44%;filter:saturate(.88) contrast(1.03)}
     .hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,25,23,.79) 0%,rgba(7,25,23,.48) 43%,rgba(7,25,23,.11) 76%),linear-gradient(0deg,rgba(7,25,23,.72) 0%,transparent 43%)}
     .hero-content{position:relative;z-index:2;padding:170px 0 88px;max-width:760px}
@@ -177,6 +174,29 @@
     .float-btn.wa{background:#25D366}
     .float-btn svg{width:23px;height:23px;fill:currentColor}
 
+
+    /* Mobile navigation backdrop */
+    .menu-backdrop{
+      position:fixed;
+      inset:0;
+      z-index:29;
+      background:rgba(4,18,16,.46);
+      backdrop-filter:blur(2px);
+      -webkit-backdrop-filter:blur(2px);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:opacity .25s ease,visibility .25s ease;
+    }
+    .menu-backdrop.open{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+    }
+    @media (min-width:981px){
+      .menu-backdrop{display:none}
+    }
+
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(3,14,13,.93);z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
     .lightbox.open{display:flex}
@@ -189,73 +209,73 @@
 
     @media (max-width:980px){
       .nav-links{
-        display:none;
+        display:flex;
+        position:fixed;
+        top:82px;
+        left:20px;
+        right:20px;
+        z-index:41;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:10px 18px 18px;
+        background:#fffdf8;
+        color:var(--ink);
+        border:1px solid rgba(17,33,31,.10);
+        border-radius:18px;
+        box-shadow:0 24px 60px rgba(12,34,31,.20);
+        opacity:0;
+        visibility:hidden;
+        pointer-events:none;
+        transform:translateY(-14px) scale(.985);
+        transform-origin:top center;
+        transition:
+          opacity .24s ease,
+          transform .30s cubic-bezier(.2,.8,.2,1),
+          visibility .24s ease;
       }
-      
+      .header.menu-open .nav-links{
+        opacity:1;
+        visibility:visible;
+        pointer-events:auto;
+        transform:translateY(0) scale(1);
+      }
+      .header.menu-open .nav-links a{
+        display:block;
+        padding:14px 4px;
+        border-bottom:1px solid var(--line);
+        font-size:1rem;
+        opacity:1;
+        transition:padding-left .2s ease,background .2s ease;
+      }
+      .header.menu-open .nav-links a:hover{padding-left:9px}
+      .header.menu-open .nav-links a:last-child{border-bottom:0}
+      .header.menu-open .nav-links .nav-cta{
+        margin-top:10px;
+        padding:13px 18px;
+        border:0;
+        border-radius:999px;
+        background:var(--forest);
+        color:#fff;
+        text-align:center;
+      }
       .menu-btn{
         display:block;
         position:relative;
         z-index:52;
+        transition:transform .28s ease;
       }
-      
+      .header.menu-open .menu-btn{transform:rotate(90deg)}
       .header.menu-open{
-        background:rgba(255,253,248,.98);
+        background:rgba(255,253,248,.985);
         color:var(--ink);
         box-shadow:0 1px 0 var(--line);
         backdrop-filter:blur(14px);
+        -webkit-backdrop-filter:blur(14px);
       }
-      
       .header.scrolled.menu-open{
-        background:rgba(255,253,248,.98);
+        background:rgba(255,253,248,.985);
         color:var(--ink);
-      }
-      
-      .header.menu-open .nav-links{
-        display:flex;
-        position:absolute;
-        top:82px;
-        left:20px;
-        right:20px;
-      
-        flex-direction:column;
-        align-items:stretch;
-        gap:0;
-      
-        padding:10px 18px 18px;
-      
-        background:#fffdf8;
-        color:var(--ink);
-      
-        border:1px solid rgba(17,33,31,.10);
-        border-radius:18px;
-      
-        box-shadow:0 24px 60px rgba(12,34,31,.20);
-        overflow:hidden;
-      }
-      
-      .header.menu-open .nav-links a{
-        display:block;
-        padding:14px 4px;
-        font-size:1rem;
-        border-bottom:1px solid var(--line);
-        opacity:1;
-      }
-      
-      .header.menu-open .nav-links a:last-child{
-        border-bottom:0;
-      }
-      
-      .header.menu-open .nav-links .nav-cta{
-        margin-top:10px;
-        padding:13px 18px;
-      
-        border:0;
-        border-radius:999px;
-      
-        background:var(--forest);
-        color:#fff;
-      
-        text-align:center;
       }
       .hero{min-height:820px}
       .hero-content{padding-bottom:175px}
@@ -278,17 +298,11 @@
       .brand-logo{width:78px;height:36px}
       .brand-copy strong{font-size:1.05rem}
       .brand-copy small{font-size:.52rem}
-      .header.menu-open .nav-links{top:71px;left:14px;right:14px}
-      .hero{
-        min-height:100svh;
-      }
-      .hero-media img{
-        object-position:center center;
-      }
+      .header.menu-open .nav-links{top:72px;left:14px;right:14px}
+      .hero{min-height:100svh}
+      .hero-media img{object-position:center center}
       .hero-media:after{background:linear-gradient(0deg,rgba(7,25,23,.88) 0%,rgba(7,25,23,.51) 57%,rgba(7,25,23,.2) 100%)}
-      .hero-content{
-        padding:125px 0 180px;
-      }
+      .hero-content{padding:125px 0 180px}
       .hero h1{font-size:clamp(3rem,15vw,4.4rem)}
       .hero p{font-size:.96rem}
       .actions{flex-direction:column;align-items:stretch}
@@ -338,17 +352,14 @@
     </div>
   </header>
 
+  <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
+
   <main>
     <section class="hero" id="home">
       <div class="hero-media">
         <picture>
           <source media="(max-width:680px)" srcset="assets/hotel-exterior.webp">
-          <img
-            src="assets/background.png"
-            alt="Hotel Greenland exterior"
-            fetchpriority="high"
-            decoding="async"
-          >
+          <img src="assets/background.png" alt="Hotel Greenland exterior" fetchpriority="high" decoding="async">
         </picture>
       </div>
       <div class="container hero-content">
@@ -447,9 +458,9 @@
           <div class="rate-card">
             <div class="rate-top"><h3>Super Deluxe</h3><span>Short Stay</span></div>
             <div class="rate-row"><span>2 hours</span><strong>₹1,000</strong></div>
-            <div class="rate-row"><span>3 hours</span><strong>₹1,250</strong></div>
-            <div class="rate-row"><span>4 hours</span><strong>₹1,500</strong></div>
-            <div class="rate-row"><span>5 hours</span><strong>₹1,750</strong></div>
+            <div class="rate-row"><span>3 hours</span><strong>₹1,500</strong></div>
+            <div class="rate-row"><span>4 hours</span><strong>₹2,000</strong></div>
+            <div class="rate-row"><span>5 hours</span><strong>₹2,500</strong></div>
           </div>
         </div>
         <p class="rate-note"><strong>Need longer?</strong> Extended hourly stays beyond 5 hours are available on request. Rates are subject to room availability — please call or WhatsApp the hotel to confirm.</p>
@@ -529,33 +540,60 @@
     const header = document.getElementById('header');
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.querySelector('.nav-links');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+
     const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 35);
     updateHeader();
     window.addEventListener('scroll', updateHeader, {passive:true});
 
-    menuBtn.addEventListener('click', () => {
-      const open = header.classList.toggle('menu-open');
-    
-      menuBtn.setAttribute(
-        'aria-expanded',
-        open ? 'true' : 'false'
-      );
-    
-      document.body.style.overflow = open ? 'hidden' : '';
+    const openMenu = () => {
+      header.classList.add('menu-open');
+      menuBackdrop.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menuBtn.setAttribute('aria-label', 'Close menu');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeMenu = () => {
+      header.classList.remove('menu-open');
+      menuBackdrop.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'Open menu');
+      document.body.style.overflow = '';
+    };
+
+    menuBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      header.classList.contains('menu-open') ? closeMenu() : openMenu();
     });
-    navLinks.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => {
-    
-        header.classList.remove('menu-open');
-    
-        document.body.style.overflow = '';
-    
-        menuBtn.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-      })
-    );
+
+    menuBackdrop.addEventListener('click', closeMenu);
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+      if(
+        header.classList.contains('menu-open') &&
+        !navLinks.contains(event.target) &&
+        !menuBtn.contains(event.target)
+      ){
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if(event.key === 'Escape' && header.classList.contains('menu-open')){
+        closeMenu();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if(window.innerWidth > 980 && header.classList.contains('menu-open')){
+        closeMenu();
+      }
+    });
 
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); io.unobserve(entry.target); } });
