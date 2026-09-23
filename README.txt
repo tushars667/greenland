@@ -16,3 +16,5 @@ This package keeps the existing asset filenames used in the user's folder, inclu
 Root icons:
   favicon.png
   apple-touch-icon.png
+
+
